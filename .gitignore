@@ -1,0 +1,45 @@
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Build, packaging, and tool caches
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Jupyter notebooks
+.ipynb_checkpoints/
+
+# OS and editor noise
+.DS_Store
+.idea/
+.vscode/
+
+# Project-local runtime/cache folders
+.hybrag/
+
+# Vector store and database artifacts
+vectorstore/**/*.db
+vectorstore/**/*.sqlite
+vectorstore/**/*.sqlite3
+vectorstore/**/*.wal
+vectorstore/**/*.tmp
+

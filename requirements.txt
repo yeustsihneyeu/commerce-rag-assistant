@@ -1,0 +1,14 @@
+llama-index
+python-docx
+ipykernel
+weaviate-client==4.19.4
+llama-index-vector-stores-weaviate
+llama-index-llms-ollama
+llama_index.llms.openai
+pydantic
+ollama
+pandas
+sentence_transformers
+gradio
+openai
+python-dotenv
