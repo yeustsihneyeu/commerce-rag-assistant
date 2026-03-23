@@ -1,11 +1,24 @@
 import sys
+
 sys.path.append("../")
 
 import json
 import math
 from typing import Any
 
-from evaluation.classes import TestQuestion
+from ragas.metrics.collections import (
+    ContextRelevance,
+    ResponseGroundedness,
+    AnswerRelevancy,
+)
+
+from evaluation.classes import (
+    TestQuestion,
+    ContextRelevanceWrapper,
+    ResponseGroundednessWrapper,
+    AnswerRelevanceWrapper,
+)
+from models.evaluation import openai_llm, openai_embeddings
 
 TEST_FILE = "../data/eval/faq_evaluation_dataset.jsonl"
 
@@ -65,7 +78,9 @@ def evaluate_retrieval(test: TestQuestion, nodes: list, k: int = 5):
 
     dcg = sum(hit / math.log2(rank + 1) for rank, hit in enumerate(hits, start=1))
     ideal_hits = [1] * min(relevant_count, retrieved_count)
-    idcg = sum(hit / math.log2(rank + 1) for rank, hit in enumerate(ideal_hits, start=1))
+    idcg = sum(
+        hit / math.log2(rank + 1) for rank, hit in enumerate(ideal_hits, start=1)
+    )
     ndcg_at_k = dcg / idcg if idcg else 0.0
 
     return {
@@ -79,14 +94,28 @@ def evaluate_retrieval(test: TestQuestion, nodes: list, k: int = 5):
     }
 
 
-def groundedness(context, response):
-    del context, response
-    raise NotImplementedError("groundedness is not implemented yet")
+async def context_relevance(test: ContextRelevanceWrapper):
+    metric = ContextRelevance(llm=openai_llm)
+    result = await metric.ascore(
+        user_input=test.question,
+        retrieved_contexts=test.contexts,
+    )
+    return result.value
 
 
-def answer_relevance(query, response):
-    del query, response
-    raise NotImplementedError("answer_relevance is not implemented yet")
+async def groundedness(test: ResponseGroundednessWrapper):
+    metric = ResponseGroundedness(llm=openai_llm)
+    result = await metric.ascore(
+        response=test.answer,
+        retrieved_contexts=test.contexts,
+    )
+    return result.value
+
+
+async def answer_relevance(test: AnswerRelevanceWrapper):
+    metric = AnswerRelevancy(llm=openai_llm, embeddings=openai_embeddings)
+    result = await metric.ascore(user_input=test.question, response=test.answer)
+    return result.value
 
 
 def load_tests() -> list[TestQuestion]:

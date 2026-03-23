@@ -12,3 +12,5 @@ sentence_transformers
 gradio
 openai
 python-dotenv
+autopep8
+ragas

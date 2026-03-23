@@ -1,13 +1,13 @@
 from typing import Any
 
 from models.generation import openai_generate
-from prompts.faq_generate_prompts import faq_generate_prompt
-from prompts.faq_rewrite_prompts import faq_rewrite_prompt
 from retrieval.faq_retriever import search_faq_hybrid
 from retrieval.reranker import rerank
+from pipelines.utils import PipelineUtils
+from prompts.faq_generate_prompts import faq_generate_prompt
 
 
-class FaqPipeline:
+class FaqPipeline(PipelineUtils):
     def __init__(
         self,
         retrieval_top_k: int = 5,
@@ -18,21 +18,6 @@ class FaqPipeline:
         self.rerank_top_k = rerank_top_k
         self.alpha = alpha
 
-    @staticmethod
-    def _extract_text(node: Any) -> str:
-        text = getattr(node, "text", None)
-        if text:
-            return text
-
-        inner_node = getattr(node, "node", None)
-        if inner_node is None:
-            return ""
-
-        if hasattr(inner_node, "get_content"):
-            return inner_node.get_content().strip()
-
-        return getattr(inner_node, "text", "").strip()
-
     def _make_prompt(self, query: str, context: str, chat_history: str) -> str:
         return faq_generate_prompt.render(
             query=query,
@@ -40,20 +25,8 @@ class FaqPipeline:
             chat_history=chat_history or "No previous messages.",
         )
 
-    def _rewrite_query(self, query: str, chat_history: str) -> str:
-        if not chat_history:
-            return query
-
-        rewrite_prompt = faq_rewrite_prompt.render(
-            query=query,
-            chat_history=chat_history,
-        )
-        rewritten_query = openai_generate(rewrite_prompt).strip()
-        return rewritten_query or query
-
     def run(self, query: str, chat_history: str = "") -> dict[str, Any]:
-        rewritten_query = self._rewrite_query(query, chat_history)
-        retrieval_query = rewritten_query
+        retrieval_query = query
         nodes = search_faq_hybrid(
             query=retrieval_query,
             top_k=self.retrieval_top_k,
@@ -74,9 +47,10 @@ class FaqPipeline:
         answer = openai_generate(prompt)
 
         return {
+            "route": "faq",
             "query": query,
             "chat_history": chat_history,
-            "rewritten_query": rewritten_query,
+            "rewritten_query": query,
             "retrieval_query": retrieval_query,
             "nodes": reranked_nodes,
             "context": context,

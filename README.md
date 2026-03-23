@@ -9,7 +9,7 @@ Hybrid RAG project for an e-commerce assistant with FAQ retrieval, query rewriti
 - runs a hybrid FAQ retrieval pipeline with reranking
 - generates answers with an LLM using retrieved context
 - provides a local Gradio chat UI for FAQ experiments
-- includes notebooks and evaluation reports for retrieval and routing quality
+- includes notebooks and evaluation reports for retrieval, answer quality, and routing quality
 
 ## Current Status
 
@@ -95,16 +95,37 @@ Typical flow in this repository:
 
 1. Prepare or update source documents in `data/raw/`
 2. Use ingestion modules or notebooks to parse, chunk, and index data
-3. Evaluate retrieval/routing quality through notebooks and generated reports
+3. Evaluate retrieval, answer quality, and routing quality through notebooks and generated reports
 4. Run `app.py` to validate the end-to-end FAQ experience
 
 ## Evaluation
 
-The repository contains notebooks and generated reports for:
+The repository contains simple notebook-based evaluation flows for the FAQ pipeline.
 
-- FAQ retrieval evaluation
-- FAQ reranking evaluation
-- class/domain routing evaluation
+Implemented evaluations:
+
+- `notebooks/08_faq_retrieve_evaluating.ipynb`
+  - retrieval metrics: `precision@k`, `recall@k`, `mrr`, `ndcg@k`
+  - context quality metric: `context_relevance`
+  - exported report: `reports/faq_retrieving_evaluation.md`
+- `notebooks/09_faq_reranking_evaluating.ipynb`
+  - compares retrieval metrics before and after reranking
+  - exported report: `reports/faq_reranking_evaluation.md`
+- `notebooks/12_faq_groundedness_evaluating.ipynb`
+  - generation quality metric: `groundedness`
+  - exported report: `reports/faq_groundedness_evaluation.md`
+- `notebooks/13_faq_answer_relevance_evaluating.ipynb`
+  - generation quality metric: `answer_relevance`
+  - exported report: `reports/faq_answer_relevance_evaluation.md`
+- `notebooks/06_class_routing.ipynb`
+  - class/domain routing evaluation
+  - exported report: `reports/class_routing_evaluation.md`
+
+Notes:
+
+- Retrieval notebooks show `score` from the hybrid retriever.
+- Groundedness and answer relevance notebooks show `rerank_score`, which is the internal reranker score for a chunk. It is not normalized and should not be interpreted like a quality metric.
+- `context_relevance`, `groundedness`, and `answer_relevance` are evaluated with `ragas`.
 
 See `notebooks/` for experiments and `reports/` for exported results.
 
@@ -117,4 +138,3 @@ See `notebooks/` for experiments and `reports/` for exported results.
   - explicit ingestion commands or scripts
   - architecture diagram
   - tests
-
