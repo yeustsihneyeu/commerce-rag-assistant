@@ -8,7 +8,7 @@ if __package__ in {None, ""}:
 from llama_index.core import Document, StorageContext, VectorStoreIndex
 from dotenv import load_dotenv
 from ingestion.faq.faq_doc_builder import build_llama_documents
-from ingestion.faq.faq_heading_chunker import parse_faq_docx
+from ingestion.faq.faq_chunker import split_by_docs
 from src.core.transformers import ConditionalFixedChunker
 from src.core.utils import ingest_pipeline
 from llama_index.embeddings.openai import OpenAIEmbedding
@@ -28,9 +28,8 @@ embedding_model = os.getenv("FAQ_EMBEDDING_MODEL_NAME")
 collection_name = os.getenv("FAQ_COLLECTION_NAME")
 
 
-
 def load_documents(path: str) -> list[dict]:
-    return parse_faq_docx(path=path)
+    return split_by_docs(path=path)
 
 
 def create_chunks(list: list[dict]) -> list[Document]:

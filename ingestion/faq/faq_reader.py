@@ -1,7 +1,7 @@
 from llama_index.core.readers.base import BaseReader
 
 from ingestion.faq.faq_doc_builder import build_llama_documents
-from ingestion.faq.faq_heading_chunker import parse_faq_docx
+from ingestion.faq.faq_chunker import parse_faq_docx
 
 
 class FaqDocxReader(BaseReader):

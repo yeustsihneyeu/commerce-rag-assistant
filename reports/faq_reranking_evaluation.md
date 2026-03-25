@@ -1,570 +1,821 @@
 # FAQ Reranking Evaluation Report
 
-Source notebook: `notebooks/09_faq_reranking.ipynb`
+Source notebook: `notebooks/09_faq_reranking_evaluating.ipynb`
 
-## Summary
+## Overview
 
 - Evaluated questions: 50
-- Mean precision@5: 0.198 -> 0.198
-- Mean recall@5: 0.980 -> 0.980
-- Mean MRR: 0.857 -> 0.910
-- Mean nDCG@5: 0.889 -> 0.928
+- Mean precision: 0.105 -> 0.105
+- Mean recall: 1.000 -> 1.000
+- Mean MRR: 0.891 -> 0.912
+- Mean nDCG: 0.919 -> 0.934
 
-## Final Metrics
+## Summary Tables
 
-| questions | precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+### Final Metrics
+
+| questions | precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 50 | 0.198 | 0.198 | 0.980 | 0.980 | 0.857 | 0.910 | 0.889 | 0.928 |
+| 50 | 0.105 | 0.105 | 1.000 | 1.000 | 0.891 | 0.912 | 0.919 | 0.934 |
 
-## Per-question Results
+## Detailed Results
 
 ### Question 1
 
-- Query: How do I register for a HopShop account using my email address?
-- Relevant docs: [1]
-- Retrieved docs: [1, 2, 6, 4, 49]
-- Reranked docs: [1, 2, 49, 4, 6]
+**Query:** Will I get a full refund including shipping if I return my order?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [83]
+
+**Retrieved docs:** [83, 77, 93, 82, 70, 94, 40, 41, 86]
+
+**Reranked docs:** [93, 83, 82, 86, 77, 70, 40, 41, 94]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.111 | 0.111 | 1.000 | 1.000 | 1.000 | 0.500 | 1.000 | 0.631 |
 
 ### Question 2
 
-- Query: How can I sign up using my Google or Facebook account?
-- Relevant docs: [2]
-- Retrieved docs: [2, 6, 1, 3, 75]
-- Reranked docs: [2, 3, 1, 6, 75]
+**Query:** Can I use multiple delivery addresses for one order or just one?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [25]
+
+**Retrieved docs:** [25, 7, 40, 24, 26, 47, 48, 28, 77, 67]
+
+**Reranked docs:** [25, 26, 24, 40, 28, 77, 48, 7, 47, 67]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.100 | 0.100 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 3
 
-- Query: How can I enable signing in with my email address and password?
-- Relevant docs: [3]
-- Retrieved docs: [3, 1, 2, 51, 49]
-- Reranked docs: [3, 1, 2, 49, 51]
+**Query:** Why does my payment status show as canceled or pending on HopShop?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [33]
+
+**Retrieved docs:** [33, 34, 35, 29, 71, 42, 51, 32, 30, 77]
+
+**Reranked docs:** [33, 34, 29, 71, 35, 42, 32, 77, 51, 30]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.100 | 0.100 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 4
 
-- Query: How do I register for a HopShop account using my phone number?
-- Relevant docs: [4]
-- Retrieved docs: [4, 1, 2, 6]
-- Reranked docs: [4, 1, 2, 6]
+**Query:** How can I find the seller's email and phone number after I make a purchase?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [21]
+
+**Retrieved docs:** [21, 41, 67, 66, 77, 20, 42, 68, 84]
+
+**Reranked docs:** [21, 20, 77, 42, 67, 41, 66, 84, 68]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.250 | 0.250 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.111 | 0.111 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 5
 
-- Query: How can I download my personal data from my HopShop account under GDPR?
-- Relevant docs: [5]
-- Retrieved docs: [5, 7, 8, 6, 11]
-- Reranked docs: [5, 11, 6, 7, 8]
+**Query:** What should I do if my parcel was damaged when I picked it up?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [69]
+
+**Retrieved docs:** [69, 66, 68, 94, 67, 77, 60, 63, 41, 74]
+
+**Reranked docs:** [69, 66, 68, 60, 67, 63, 77, 94, 74, 41]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.100 | 0.100 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 6
 
-- Query: Am I allowed to have multiple HopShop accounts, and are there any restrictions?
-- Relevant docs: [6]
-- Retrieved docs: [6, 50, 40, 46, 17]
-- Reranked docs: [6, 40, 46, 17, 50]
+**Query:** How do I sign up using my Google or Facebook account?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [3]
+
+**Retrieved docs:** [3, 1, 7, 2, 4, 68, 5, 54, 10, 64]
+
+**Reranked docs:** [3, 5, 1, 4, 2, 10, 7, 54, 68, 64]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.100 | 0.100 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 7
 
-- Query: How do I close my HopShop account?
-- Relevant docs: [7]
-- Retrieved docs: [7, 16, 6, 14, 2]
-- Reranked docs: [7, 16, 14, 6, 2]
+**Query:** How can I find my parcel's tracking number and check its delivery status on HopShop?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [42]
+
+**Retrieved docs:** [42, 51, 41, 77, 50, 59, 58, 64, 47, 49]
+
+**Reranked docs:** [42, 41, 51, 77, 59, 50, 47, 58, 49, 64]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.100 | 0.100 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 8
 
-- Query: How can I withdraw from my agreement with HopShop?
-- Relevant docs: [8]
-- Retrieved docs: [9, 8, 10, 7, 14]
-- Reranked docs: [9, 7, 8, 14, 10]
+**Query:** How will I receive my refund from the seller?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [85]
+
+**Retrieved docs:** [83, 85, 82, 84, 93, 77, 81, 74, 86]
+
+**Reranked docs:** [83, 85, 82, 84, 81, 93, 86, 77, 74]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 0.500 | 0.333 | 0.631 | 0.500 |
+| 0.111 | 0.111 | 1.000 | 1.000 | 0.500 | 0.500 | 0.631 | 0.631 |
 
 ### Question 9
 
-- Query: Under what conditions can I withdraw from my agreement with HopShop?
-- Relevant docs: [9]
-- Retrieved docs: [9, 8, 10, 12, 13]
-- Reranked docs: [9, 8, 12, 13, 10]
+**Query:** How long does it take to get a refund for a wire transfer, and what if I used a postal order?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [91]
+
+**Retrieved docs:** [91, 89, 93, 77, 34, 83, 86, 87, 90]
+
+**Reranked docs:** [91, 34, 89, 86, 90, 87, 77, 93, 83]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.111 | 0.111 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 10
 
-- Query: How can I withdraw from my agreement and what happens to my account after I do?
-- Relevant docs: [10]
-- Retrieved docs: [10, 9, 15, 11, 13]
-- Reranked docs: [10, 9, 11, 13, 15]
+**Query:** How is the estimated delivery time calculated on HopShop?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [43]
+
+**Retrieved docs:** [43, 44, 45, 46, 50, 37, 49, 47, 36, 48]
+
+**Reranked docs:** [43, 45, 44, 46, 37, 36, 48, 49, 47, 50]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.100 | 0.100 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 11
 
-- Query: What are the possible outcomes after I submit an account deletion request?
-- Relevant docs: [11]
-- Retrieved docs: [15, 11, 10, 6, 107]
-- Reranked docs: [11, 10, 15, 6, 107]
+**Query:** What happens to my gift card if I return an order I paid for with it?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [92]
+
+**Retrieved docs:** [92, 32, 77, 86, 70, 94, 68, 67, 87]
+
+**Reranked docs:** [92, 32, 86, 70, 77, 87, 68, 94, 67]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 0.500 | 1.000 | 0.631 | 1.000 |
+| 0.111 | 0.111 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 12
 
-- Query: How can I terminate my agreement with HopShop?
-- Relevant docs: [12]
-- Retrieved docs: [14, 12, 13, 7, 8]
-- Reranked docs: [14, 7, 12, 8, 13]
+**Query:** How can I reorder a single product from my past purchases?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [16]
+
+**Retrieved docs:** [16, 15, 17, 18, 35, 14, 77, 41, 79]
+
+**Reranked docs:** [16, 17, 18, 15, 35, 77, 79, 14, 41]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 0.500 | 0.333 | 0.631 | 0.500 |
+| 0.111 | 0.111 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 13
 
-- Query: When am I allowed to terminate the agreement?
-- Relevant docs: [13]
-- Retrieved docs: [13, 14, 9, 12, 8]
-- Reranked docs: [13, 14, 9, 12, 8]
+**Query:** How will I be notified when my refund is processed?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [84]
+
+**Retrieved docs:** [84, 85, 82, 77, 83, 88, 35, 90, 87]
+
+**Reranked docs:** [84, 82, 87, 85, 90, 88, 83, 35, 77]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.111 | 0.111 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 14
 
-- Query: How can I terminate my agreement with HopShop?
-- Relevant docs: [14]
-- Retrieved docs: [14, 12, 13, 7, 8]
-- Reranked docs: [14, 7, 12, 8, 13]
+**Query:** How can I open a Discussion if I canceled an order paid through HopShop Finance and haven’t received a refund?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [71]
+
+**Retrieved docs:** [71, 70, 81, 77, 33, 76, 93, 35, 75]
+
+**Reranked docs:** [71, 76, 33, 81, 70, 77, 93, 35, 75]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.111 | 0.111 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 15
 
-- Query: What happens after I submit my account termination application on HopShop?
-- Relevant docs: [15]
-- Retrieved docs: [11, 15, 12, 14, 7]
-- Reranked docs: [15, 11, 14, 7, 12]
+**Query:** Why might my actual delivery time be different from the estimated delivery time?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [45]
+
+**Retrieved docs:** [45, 46, 43, 44, 37, 77, 63, 34, 67]
+
+**Reranked docs:** [45, 43, 46, 37, 44, 77, 34, 67, 63]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 0.500 | 1.000 | 0.631 | 1.000 |
+| 0.111 | 0.111 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 16
 
-- Query: What steps do I need to take before my notice period with HopShop ends?
-- Relevant docs: [16]
-- Retrieved docs: [16, 15, 12, 8, 7]
-- Reranked docs: [16, 15, 7, 12, 8]
+**Query:** Who is responsible if an item is damaged during delivery when buying from an entrepreneur?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [72]
+
+**Retrieved docs:** [72, 97, 73, 69, 40, 60, 83, 36, 77]
+
+**Reranked docs:** [72, 73, 97, 69, 60, 83, 77, 40, 36]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.111 | 0.111 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 17
 
-- Query: How do I buy products or make recurring purchases on HopShop?
-- Relevant docs: [17]
-- Retrieved docs: [17, 26, 18, 25, 40]
-- Reranked docs: [17, 26, 40, 18, 25]
+**Query:** What should I do if my pick-up code isn’t working at the parcel locker?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [68]
+
+**Retrieved docs:** [68, 66, 53, 63, 64, 69, 56, 65, 55, 54]
+
+**Reranked docs:** [68, 66, 69, 63, 53, 56, 65, 54, 64, 55]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.100 | 0.100 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 18
 
-- Query: How can I purchase a product on HopShop?
-- Relevant docs: [18]
-- Retrieved docs: [18, 17, 51, 24, 6]
-- Reranked docs: [17, 18, 6, 51, 24]
+**Query:** What happens if I frequently cancel or don't pay for my purchases on HopShop?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [79]
+
+**Retrieved docs:** [79, 35, 77, 12, 13, 7, 32, 29, 14]
+
+**Reranked docs:** [79, 29, 12, 35, 32, 7, 77, 13, 14]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 0.500 | 1.000 | 0.631 |
+| 0.111 | 0.111 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 19
 
-- Query: How can I search for a specific product and filter the results?
-- Relevant docs: [19]
-- Retrieved docs: [19, 57, 18, 24, 23]
-- Reranked docs: [19, 57, 23, 24, 18]
+**Query:** What do I need to do to pick up my parcel from a pick-up point?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [55]
+
+**Retrieved docs:** [55, 66, 64, 68, 53, 63, 69, 56, 54, 57]
+
+**Reranked docs:** [69, 66, 55, 53, 68, 54, 63, 64, 56, 57]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.100 | 0.100 | 1.000 | 1.000 | 1.000 | 0.333 | 1.000 | 0.500 |
 
 ### Question 20
 
-- Query: How can I check a seller’s ratings and read the product description before buying?
-- Relevant docs: [20]
-- Retrieved docs: [20, 23, 29, 51, 50]
-- Reranked docs: [20, 23, 29, 50, 51]
+**Query:** How long does it take to get a BLIK refund and where can I see it in my bank account?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [90]
+
+**Retrieved docs:** [90, 89, 86, 87, 77, 83, 46, 91, 88, 93]
+
+**Reranked docs:** [90, 89, 87, 86, 91, 93, 77, 88, 46, 83]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.100 | 0.100 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 21
 
-- Query: What are the different ways I can buy a product?
-- Relevant docs: [21]
-- Retrieved docs: [21, 17, 18, 24, 50]
-- Reranked docs: [21, 50, 24, 17, 18]
+**Query:** How do I pay for my order using PayPal and how does currency conversion work?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [31]
+
+**Retrieved docs:** [31, 30, 77, 68, 24, 35, 28, 40, 41]
+
+**Reranked docs:** [31, 30, 28, 24, 77, 40, 35, 41, 68]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.111 | 0.111 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 22
 
-- Query: How do I choose my delivery and payment options when placing an order?
-- Relevant docs: [22]
-- Retrieved docs: [34, 46, 50, 90, 22]
-- Reranked docs: [22, 34, 50, 90, 46]
+**Query:** How can I change my parcel locker or pick-up point before the seller ships my order?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [66]
+
+**Retrieved docs:** [66, 64, 63, 68, 67, 55, 65, 56, 53, 77]
+
+**Reranked docs:** [66, 63, 65, 68, 53, 56, 64, 67, 77, 55]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 0.200 | 1.000 | 0.387 | 1.000 |
+| 0.100 | 0.100 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 23
 
-- Query: How do I rate the seller and the product after making a purchase?
-- Relevant docs: [23]
-- Retrieved docs: [23, 20, 29, 94, 107]
-- Reranked docs: [23, 29, 94, 20, 107]
+**Query:** What are the options for returning a HopShop Delivery parcel?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [58]
+
+**Retrieved docs:** [36, 58, 47, 48, 50, 61, 56, 51, 59, 49]
+
+**Reranked docs:** [58, 47, 36, 50, 48, 56, 59, 49, 51, 61]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.100 | 0.100 | 1.000 | 1.000 | 0.500 | 1.000 | 0.631 | 1.000 |
 
 ### Question 24
 
-- Query: How can I repurchase an individual product from a previous order?
-- Relevant docs: [24]
-- Retrieved docs: [25, 24, 23, 26, 17]
-- Reranked docs: [25, 23, 24, 26, 17]
+**Query:** How long will my parcel be held at the pick-up point before being sent back?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [57]
+
+**Retrieved docs:** [64, 55, 57, 66, 63, 53, 65, 68, 54, 77]
+
+**Reranked docs:** [57, 77, 53, 63, 66, 55, 65, 64, 54, 68]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 0.500 | 0.333 | 0.631 | 0.500 |
+| 0.100 | 0.100 | 1.000 | 1.000 | 0.333 | 1.000 | 0.500 | 1.000 |
 
 ### Question 25
 
-- Query: How can I reorder all items from a previous purchase?
-- Relevant docs: [25]
-- Retrieved docs: [25, 24, 78, 23, 51]
-- Reranked docs: [25, 23, 24, 51, 78]
+**Query:** What should I do if I'm unsure about my parcel status?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [52]
+
+**Retrieved docs:** [66, 67, 69, 68, 52, 94, 77, 41, 74, 42]
+
+**Reranked docs:** [69, 52, 66, 67, 68, 41, 77, 42, 74, 94]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.100 | 0.100 | 1.000 | 1.000 | 0.200 | 0.500 | 0.387 | 0.631 |
 
 ### Question 26
 
-- Query: How can I quickly reorder products I buy regularly?
-- Relevant docs: [26]
-- Retrieved docs: [25, 26, 50, 17, 24]
-- Reranked docs: [26, 25, 24, 50, 17]
+**Query:** What happens if the parcel locker has no available space for my package?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [65]
+
+**Retrieved docs:** [65, 66, 64, 69, 56, 63, 68, 35, 77, 61]
+
+**Reranked docs:** [63, 66, 69, 65, 68, 56, 64, 77, 61, 35]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 0.500 | 1.000 | 0.631 | 1.000 |
+| 0.100 | 0.100 | 1.000 | 1.000 | 1.000 | 0.250 | 1.000 | 0.431 |
 
 ### Question 27
 
-- Query: What are the ways I can contact a seller on HopShop?
-- Relevant docs: [27]
-- Retrieved docs: [27, 29, 78, 77, 28]
-- Reranked docs: [27, 28, 29, 78, 77]
+**Query:** Can I open a Discussion for a purchase made more than two years ago?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [80]
+
+**Retrieved docs:** [70, 80, 71, 81, 76, 7, 75, 77, 79]
+
+**Reranked docs:** [80, 75, 76, 79, 81, 71, 70, 77, 7]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.111 | 0.111 | 1.000 | 1.000 | 0.500 | 1.000 | 0.631 | 1.000 |
 
 ### Question 28
 
-- Query: How can I contact a seller with a question about an item on HopShop?
-- Relevant docs: [28]
-- Retrieved docs: [27, 28, 29, 70, 40]
-- Reranked docs: [28, 27, 40, 70, 29]
+**Query:** How can I collect my parcel from a parcel locker using a pick-up code or the HopShop app?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [56]
+
+**Retrieved docs:** [56, 55, 54, 53, 68, 64, 66, 63, 51, 57]
+
+**Reranked docs:** [56, 54, 53, 55, 57, 51, 68, 66, 64, 63]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 0.500 | 1.000 | 0.631 | 1.000 |
+| 0.100 | 0.100 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 29
 
-- Query: How can I find the seller's contact information after making a purchase?
-- Relevant docs: [29]
-- Retrieved docs: [29, 27, 78, 77, 51]
-- Reranked docs: [29, 27, 78, 77, 51]
+**Query:** How can I share my HopShop Delivery pick-up code with someone else using the app?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [54]
+
+**Retrieved docs:** [54, 53, 68, 56, 47, 48, 64, 55, 50, 51]
+
+**Reranked docs:** [54, 56, 53, 48, 47, 51, 50, 68, 55, 64]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.100 | 0.100 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 30
 
-- Query: How can I contact a seller on HopShop without leaving the website or app?
-- Relevant docs: [30]
-- Retrieved docs: [27, 51, 30, 29, 62]
-- Reranked docs: [30, 27, 51, 62, 29]
+**Query:** How long does it take to get a refund to my bank account if I used a debit card?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [86]
+
+**Retrieved docs:** [86, 87, 88, 89, 90, 91, 92, 77, 93, 83]
+
+**Reranked docs:** [86, 87, 89, 90, 91, 92, 88, 93, 77, 83]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 0.333 | 1.000 | 0.500 | 1.000 |
+| 0.100 | 0.100 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 31
 
-- Query: What should I do if I have an issue with my order, like not receiving it or problems with returning it?
-- Relevant docs: [31]
-- Retrieved docs: [107, 90, 87, 78]
-- Reranked docs: [87, 90, 107, 78]
+**Query:** How can I track my HopShop Delivery parcel and know when it's ready for collection?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [51]
+
+**Retrieved docs:** [41, 51, 42, 50, 58, 77, 53, 47, 56, 59]
+
+**Reranked docs:** [41, 51, 53, 56, 42, 59, 77, 50, 47, 58]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
+| 0.100 | 0.100 | 1.000 | 1.000 | 0.500 | 0.500 | 0.631 | 0.631 |
 
 ### Question 32
 
-- Query: How can I pay for items from multiple sellers in a single transaction?
-- Relevant docs: [32]
-- Retrieved docs: [32, 36, 50, 34, 38]
-- Reranked docs: [32, 36, 38, 34, 50]
+**Query:** How can I find out which delivery options are available for an item on HopShop?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [36]
+
+**Retrieved docs:** [36, 47, 40, 58, 50, 49, 51, 26, 15, 41]
+
+**Reranked docs:** [36, 15, 47, 50, 51, 49, 26, 58, 41, 40]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.100 | 0.100 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 33
 
-- Query: Can I choose just one delivery address and one set of VAT invoice details for my entire order?
-- Relevant docs: [33]
-- Retrieved docs: [33, 50, 49, 34, 36]
-- Reranked docs: [33, 34, 49, 50, 36]
+**Query:** Can I withdraw from the agreement if my account is older than 14 days?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [10]
+
+**Retrieved docs:** [9, 10, 11, 12, 7, 8, 77, 76, 80]
+
+**Reranked docs:** [10, 9, 76, 11, 12, 8, 77, 7, 80]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.111 | 0.111 | 1.000 | 1.000 | 0.500 | 1.000 | 0.631 | 1.000 |
 
 ### Question 34
 
-- Query: How do I choose a delivery option when buying from one or multiple sellers?
-- Relevant docs: [34]
-- Retrieved docs: [34, 50, 32, 36, 22]
-- Reranked docs: [34, 50, 32, 36, 22]
+**Query:** How can I make a purchase or set up recurring orders on HopShop?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [14]
+
+**Retrieved docs:** [18, 14, 39, 15, 32, 50, 7, 48, 1]
+
+**Reranked docs:** [14, 18, 15, 32, 7, 39, 50, 48, 1]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.111 | 0.111 | 1.000 | 1.000 | 0.500 | 1.000 | 0.631 | 1.000 |
 
 ### Question 35
 
-- Query: How is the delivery cost calculated if there are or aren't price lists in the seller's offers?
-- Relevant docs: [35]
-- Retrieved docs: [35, 48, 50, 34, 60]
-- Reranked docs: [35, 48, 50, 60, 34]
+**Query:** Can I split payment for multiple orders from different sellers?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [30]
+
+**Retrieved docs:** [24, 30, 28, 40, 26, 29, 41, 70, 67, 35]
+
+**Reranked docs:** [24, 30, 40, 26, 28, 29, 41, 70, 35, 67]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.100 | 0.100 | 1.000 | 1.000 | 0.500 | 0.500 | 0.631 | 0.631 |
 
 ### Question 36
 
-- Query: How can I pay for both auction items and buy now purchases together in a single payment?
-- Relevant docs: [36]
-- Retrieved docs: [36, 37, 32, 24, 38]
-- Reranked docs: [36, 37, 32, 24, 38]
+**Query:** How long does a seller have to respond to my complaint before it is considered upheld?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [95]
+
+**Retrieved docs:** [95, 77, 75, 93, 60, 59, 76, 82, 78]
+
+**Reranked docs:** [95, 75, 60, 76, 82, 93, 77, 59, 78]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.111 | 0.111 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 37
 
-- Query: Can I use installments or HopShop Pay to pay for auction items?
-- Relevant docs: [37]
-- Retrieved docs: [37, 36, 32, 22, 6]
-- Reranked docs: [37, 36, 22, 6, 32]
+**Query:** How can I enable sign-in with my email and password?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [4]
+
+**Retrieved docs:** [4, 2, 3, 41, 35, 77, 66, 6, 1]
+
+**Reranked docs:** [4, 2, 3, 6, 77, 1, 41, 66, 35]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.111 | 0.111 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 38
 
-- Query: Can I split the payment for multiple orders or orders from the same seller?
-- Relevant docs: [38]
-- Retrieved docs: [32, 38, 36, 50, 37]
-- Reranked docs: [32, 38, 50, 36, 37]
+**Query:** What are the ways to contact a seller on HopShop?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [19]
+
+**Retrieved docs:** [19, 21, 20, 93, 32, 36, 22, 14, 58, 48]
+
+**Reranked docs:** [19, 22, 20, 32, 36, 93, 58, 14, 21, 48]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 0.500 | 0.500 | 0.631 | 0.631 |
+| 0.100 | 0.100 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 39
 
-- Query: How do I pay for my order using PayPal, and how does currency conversion work?
-- Relevant docs: [39]
-- Retrieved docs: [39, 38, 90, 79, 32]
-- Reranked docs: [39, 38, 32, 90, 79]
+**Query:** Where can I find the estimated delivery time for an offer?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [46]
+
+**Retrieved docs:** [46, 43, 37, 45, 44, 77, 67, 42, 38, 41]
+
+**Reranked docs:** [46, 43, 37, 45, 44, 38, 77, 42, 41, 67]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.100 | 0.100 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 40
 
-- Query: How can I use a HopShop gift card to make a purchase on HopShop.pl or the app?
-- Relevant docs: [40]
-- Retrieved docs: [40, 105, 17, 62]
-- Reranked docs: [40, 105, 17, 62]
+**Query:** Can I combine shipping costs when buying multiple items from different sellers?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [40]
+
+**Retrieved docs:** [40, 24, 26, 41, 39, 38, 28, 83, 67, 73]
+
+**Reranked docs:** [40, 26, 24, 38, 73, 83, 28, 39, 41, 67]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.250 | 0.250 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.100 | 0.100 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 41
 
-- Query: Why is my payment marked as pending or canceled?
-- Relevant docs: [41]
-- Retrieved docs: [41, 44, 43, 45, 42]
-- Reranked docs: [41, 44, 43, 42, 45]
+**Query:** What are the ways to register for a HopShop account?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [1]
+
+**Retrieved docs:** [1, 3, 2, 5, 7, 8, 14, 6, 48]
+
+**Reranked docs:** [1, 2, 3, 5, 7, 6, 8, 14, 48]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.111 | 0.111 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 42
 
-- Query: What should I do if my payment was canceled and I want to retry or get a refund?
-- Relevant docs: [42]
-- Retrieved docs: [42, 45, 41, 78, 77]
-- Reranked docs: [42, 41, 45, 78, 77]
+**Query:** Why isn't my usual pick-up point showing on the delivery map?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [63]
+
+**Retrieved docs:** [63, 64, 66, 55, 68, 53, 47, 54, 48, 46]
+
+**Reranked docs:** [63, 64, 66, 46, 53, 48, 54, 68, 47, 55]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.100 | 0.100 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 43
 
-- Query: What should I do if my payment status is stuck on Pending?
-- Relevant docs: [43]
-- Retrieved docs: [44, 41, 43, 78, 45]
-- Reranked docs: [44, 43, 41, 45, 78]
+**Query:** Why is my payment still pending after I paid by wire transfer through a third party?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [34]
+
+**Retrieved docs:** [34, 33, 91, 35, 77, 89, 29, 28, 71]
+
+**Reranked docs:** [34, 33, 71, 91, 28, 35, 77, 89, 29]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 0.333 | 0.500 | 0.500 | 0.631 |
+| 0.111 | 0.111 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 44
 
-- Query: Why is my payment still pending, and what should I do if I paid by wire transfer or directly to the seller's bank account?
-- Relevant docs: [44]
-- Retrieved docs: [44, 41, 104, 78, 102]
-- Reranked docs: [44, 41, 104, 102, 78]
+**Query:** What should I do if the product I received is defective?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [94]
+
+**Retrieved docs:** [94, 69, 67, 74, 68, 66, 96, 77, 93, 40]
+
+**Reranked docs:** [94, 74, 69, 96, 77, 67, 66, 93, 68, 40]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.100 | 0.100 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 45
 
-- Query: How can I retry a payment that didn’t go through?
-- Relevant docs: [45]
-- Retrieved docs: [45, 43, 42, 37, 41]
-- Reranked docs: [45, 42, 43, 37, 41]
+**Query:** How long does it take to get a refund on my credit card for a Mastercard or Visa?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [87]
+
+**Retrieved docs:** [87, 86, 88, 93, 83, 92, 90, 91, 89, 77]
+
+**Reranked docs:** [87, 86, 90, 89, 91, 92, 93, 88, 77, 83]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.100 | 0.100 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 46
 
-- Query: How can I find out what delivery options are available for a product on HopShop?
-- Relevant docs: [46]
-- Retrieved docs: [46, 58, 61, 18, 60]
-- Reranked docs: [46, 58, 61, 60, 18]
+**Query:** What situations allow me to file a complaint about your delivery service?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [60]
+
+**Retrieved docs:** [60, 59, 95, 69, 74, 67, 77, 97, 48]
+
+**Reranked docs:** [60, 59, 97, 69, 95, 77, 67, 48, 74]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.111 | 0.111 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 47
 
-- Query: How is the delivery time provided for each offer?
-- Relevant docs: [47]
-- Retrieved docs: [47, 56, 53, 54, 55]
-- Reranked docs: [47, 56, 53, 54, 55]
+**Query:** How do I close my HopShop account?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [8]
+
+**Retrieved docs:** [8, 13, 7, 1, 12, 3, 6, 39, 10, 2]
+
+**Reranked docs:** [8, 13, 12, 7, 2, 10, 6, 39, 3, 1]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.100 | 0.100 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 48
 
-- Query: How can I find out the delivery cost for a product?
-- Relevant docs: [48]
-- Retrieved docs: [48, 35, 50, 78, 51]
-- Reranked docs: [48, 35, 50, 51, 78]
+**Query:** Do I have to use the original packaging or include the receipt when sending a product back for a complaint?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [96]
+
+**Retrieved docs:** [96, 94, 60, 69, 59, 95, 97, 77, 82, 73]
+
+**Reranked docs:** [96, 97, 82, 60, 59, 73, 69, 95, 94, 77]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.100 | 0.100 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 49
 
-- Query: How can I add or change my shipping address on HopShop when placing an order?
-- Relevant docs: [49]
-- Retrieved docs: [49, 61, 77, 90, 51]
-- Reranked docs: [49, 90, 61, 51, 77]
+**Query:** How can I change the delivery date before my order is dispatched?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [67]
+
+**Retrieved docs:** [67, 77, 66, 78, 41, 40, 70, 46, 50]
+
+**Reranked docs:** [67, 77, 78, 41, 66, 46, 40, 50, 70]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 0.111 | 0.111 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
 ### Question 50
 
-- Query: How does delivery work if I buy multiple products, possibly from different sellers?
-- Relevant docs: [50]
-- Retrieved docs: [50, 32, 34, 48, 25]
-- Reranked docs: [50, 34, 32, 25, 48]
+**Query:** What should I do if my order delivery is delayed and I can't contact the seller?
 
-| precision@5 | RERANKED_precision@5 | recall@5 | RERANKED_recall@5 | mrr | RERANKED_mrr | ndcg@5 | RERANKED_ndcg@5 |
+**Relevant docs:** [77]
+
+**Retrieved docs:** [67, 77, 74, 66, 68, 94, 40, 69, 70]
+
+**Reranked docs:** [74, 77, 67, 70, 66, 69, 40, 68, 94]
+
+Metrics:
+
+| precision | RERANKED_precision | recall | RERANKED_recall | mrr | RERANKED_mrr | ndcg | RERANKED_ndcg |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0.200 | 0.200 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
-
+| 0.111 | 0.111 | 1.000 | 1.000 | 0.500 | 0.500 | 0.631 | 0.631 |

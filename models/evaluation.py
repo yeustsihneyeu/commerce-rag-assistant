@@ -11,7 +11,7 @@ api_key = os.getenv("OPENAI_API_KEY")
 client = AsyncOpenAI()
 
 openai_llm = llm_factory(
-    model="gpt-4o-mini",
+    model="gpt-4.1",
     client=client,
 )
 

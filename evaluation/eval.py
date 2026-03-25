@@ -17,10 +17,20 @@ from evaluation.classes import (
     ContextRelevanceWrapper,
     ResponseGroundednessWrapper,
     AnswerRelevanceWrapper,
+    CalibrationTest,
 )
 from models.evaluation import openai_llm, openai_embeddings
 
 TEST_FILE = "../data/eval/faq_evaluation_dataset.jsonl"
+TEST_CALIB_FILE = "../data/eval/faq_answer_calibration_dataset.jsonl"
+
+
+def _has_text(value: Any) -> bool:
+    return isinstance(value, str) and bool(value.strip())
+
+
+def _has_any_text(values: list[Any]) -> bool:
+    return any(_has_text(value) for value in values)
 
 
 def _get_node_metadata(item: Any) -> dict[str, Any]:
@@ -87,14 +97,16 @@ def evaluate_retrieval(test: TestQuestion, nodes: list, k: int = 5):
         "question": test.question,
         "relevant_docs": test.relevant_docs,
         "retrieved_docs": retrieved_ids,
-        f"precision@{k}": precision_at_k,
-        f"recall@{k}": recall_at_k,
+        f"precision": precision_at_k,
+        f"recall": recall_at_k,
         "mrr": mrr,
-        f"ndcg@{k}": ndcg_at_k,
+        f"ndcg": ndcg_at_k,
     }
 
 
 async def context_relevance(test: ContextRelevanceWrapper):
+    if not _has_text(test.question) or not _has_any_text(test.contexts):
+        return 0.0
     metric = ContextRelevance(llm=openai_llm)
     result = await metric.ascore(
         user_input=test.question,
@@ -104,6 +116,8 @@ async def context_relevance(test: ContextRelevanceWrapper):
 
 
 async def groundedness(test: ResponseGroundednessWrapper):
+    if not _has_text(test.answer) or not _has_any_text(test.contexts):
+        return 0.0
     metric = ResponseGroundedness(llm=openai_llm)
     result = await metric.ascore(
         response=test.answer,
@@ -113,6 +127,8 @@ async def groundedness(test: ResponseGroundednessWrapper):
 
 
 async def answer_relevance(test: AnswerRelevanceWrapper):
+    if not _has_text(test.question) or not _has_text(test.answer):
+        return 0.0
     metric = AnswerRelevancy(llm=openai_llm, embeddings=openai_embeddings)
     result = await metric.ascore(user_input=test.question, response=test.answer)
     return result.value
@@ -124,4 +140,13 @@ def load_tests() -> list[TestQuestion]:
         for line in f:
             data = json.loads(line.strip())
             tests.append(TestQuestion(**data))
+    return tests
+
+
+def load_calibration_tests() -> list[CalibrationTest]:
+    tests = []
+    with open(TEST_CALIB_FILE, "r", encoding="utf-8") as f:
+        for line in f:
+            data = json.loads(line.strip())
+            tests.append(CalibrationTest(**data))
     return tests

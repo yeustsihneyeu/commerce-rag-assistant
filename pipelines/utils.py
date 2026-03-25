@@ -1,8 +1,8 @@
 from typing import Any
 
 from models.generation import openai_generate
-from prompts.faq_generate_prompts import faq_generate_prompt
 from prompts.faq_rewrite_prompts import faq_rewrite_prompt
+from numbers import Real
 
 
 class PipelineUtils:
@@ -30,3 +30,9 @@ class PipelineUtils:
         )
         rewritten_query = openai_generate(rewrite_prompt).strip()
         return rewritten_query or query
+
+    def _get_node_score(self, node: Any) -> float | None:
+        score = getattr(node, "score", None)
+        if isinstance(score, bool) or not isinstance(score, Real):
+            return None
+        return round(float(score), 4)

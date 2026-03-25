@@ -5,13 +5,14 @@ from retrieval.faq_retriever import search_faq_hybrid
 from retrieval.reranker import rerank
 from pipelines.utils import PipelineUtils
 from prompts.faq_generate_prompts import faq_generate_prompt
+from retrieval.selector import faq_select_k
 
 
 class FaqPipeline(PipelineUtils):
     def __init__(
         self,
-        retrieval_top_k: int = 5,
-        rerank_top_k: int = 3,
+        retrieval_top_k: int = 10,
+        rerank_top_k: int = 5,
         alpha: float = 0.5,
     ) -> None:
         self.retrieval_top_k = retrieval_top_k
@@ -34,7 +35,11 @@ class FaqPipeline(PipelineUtils):
         )
         reranked_nodes = rerank(retrieval_query, nodes, top_k=self.rerank_top_k)
         context_parts = []
-        for node in reranked_nodes:
+
+        k = faq_select_k([self._get_node_score(node) for node in reranked_nodes])
+        selected_nodes = reranked_nodes[:k]
+
+        for node in selected_nodes:
             text = self._extract_text(node)
             if text:
                 context_parts.append(text)
@@ -52,7 +57,7 @@ class FaqPipeline(PipelineUtils):
             "chat_history": chat_history,
             "rewritten_query": query,
             "retrieval_query": retrieval_query,
-            "nodes": reranked_nodes,
+            "nodes": selected_nodes,
             "context": context,
             "prompt": prompt,
             "answer": answer,
