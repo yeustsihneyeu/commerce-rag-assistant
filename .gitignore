@@ -46,4 +46,5 @@ vectorstore/**/*.tmp
 
 
 data/processed/product.csv
+data/processed/collection.json
 data/raw/product.csv

@@ -17,12 +17,12 @@ from evaluation.classes import (
     ContextRelevanceWrapper,
     ResponseGroundednessWrapper,
     AnswerRelevanceWrapper,
-    CalibrationTest,
 )
+from evaluation.reporting import get_node_id
 from models.evaluation import openai_llm, openai_embeddings
 
-TEST_FILE = "../data/eval/faq_evaluation_dataset.jsonl"
-TEST_CALIB_FILE = "../data/eval/faq_answer_calibration_dataset.jsonl"
+TEST_FILE = "../../data/eval/faq_evaluation_dataset.jsonl"
+PRODUCT_TEST_FILE = "../../data/eval/product_eval_dataset.jsonl"
 
 
 def _has_text(value: Any) -> bool:
@@ -33,26 +33,15 @@ def _has_any_text(values: list[Any]) -> bool:
     return any(_has_text(value) for value in values)
 
 
-def _get_node_metadata(item: Any) -> dict[str, Any]:
-    if hasattr(item, "node"):
-        return getattr(item.node, "metadata", {}) or {}
-    return getattr(item, "metadata", {}) or {}
-
-
-def _get_section_id(item: Any) -> Any:
-    metadata = _get_node_metadata(item)
-    return metadata.get("section_id")
-
-
-def _unique_by_section_id(nodes: list[Any], k: int) -> list[Any]:
+def _unique_by_node_id(nodes: list[Any], k: int) -> list[Any]:
     unique_nodes = []
-    seen_section_ids = set()
+    seen_node_ids = set()
 
     for item in nodes:
-        section_id = _get_section_id(item)
-        if section_id in seen_section_ids:
+        node_id = get_node_id(item)
+        if node_id in seen_node_ids:
             continue
-        seen_section_ids.add(section_id)
+        seen_node_ids.add(node_id)
         unique_nodes.append(item)
         if len(unique_nodes) >= k:
             break
@@ -61,17 +50,17 @@ def _unique_by_section_id(nodes: list[Any], k: int) -> list[Any]:
 
 
 def evaluate_retrieval(test: TestQuestion, nodes: list, k: int = 5):
-    # precision@k, recall@k, mrr, nDCG@k are computed on unique section ids.
-    retrieved = _unique_by_section_id(list(nodes), k=k)
+    # precision@k, recall@k, mrr, nDCG@k are computed on unique retrieved ids.
+    retrieved = _unique_by_node_id(list(nodes), k=k)
     relevant_docs = set(test.relevant_docs)
 
     hits = []
     retrieved_ids = []
 
     for item in retrieved:
-        section_id = _get_section_id(item)
-        retrieved_ids.append(section_id)
-        hits.append(1 if section_id in relevant_docs else 0)
+        node_id = get_node_id(item)
+        retrieved_ids.append(node_id)
+        hits.append(1 if node_id in relevant_docs else 0)
 
     hit_count = sum(hits)
     retrieved_count = len(retrieved)
@@ -143,10 +132,10 @@ def load_tests() -> list[TestQuestion]:
     return tests
 
 
-def load_calibration_tests() -> list[CalibrationTest]:
+def product_load_tests() -> list[TestQuestion]:
     tests = []
-    with open(TEST_CALIB_FILE, "r", encoding="utf-8") as f:
+    with open(PRODUCT_TEST_FILE, "r", encoding="utf-8") as f:
         for line in f:
             data = json.loads(line.strip())
-            tests.append(CalibrationTest(**data))
+            tests.append(TestQuestion(**data))
     return tests

@@ -24,7 +24,9 @@ def _markdown_table(rows: list[dict[str, Any]], columns: list[str]) -> str:
     separator = "| " + " | ".join("---" for _ in columns) + " |"
     body = [
         "| "
-        + " | ".join(_stringify_markdown_value(row.get(column, "")) for column in columns)
+        + " | ".join(
+            _stringify_markdown_value(row.get(column, "")) for column in columns
+        )
         + " |"
         for row in rows
     ]
@@ -95,8 +97,24 @@ def _append_detail_results_heading(lines: list[str]) -> None:
 
 def get_node_metadata(item: Any) -> dict[str, Any]:
     if hasattr(item, "node"):
-        return getattr(item.node, "metadata", {}) or {}
+        return (
+            getattr(item.node, "metadata", None)
+            or getattr(item, "metadata", None)
+            or {}
+        )
     return getattr(item, "metadata", {}) or {}
+
+
+def get_node_id(item: Any) -> Any:
+    node = getattr(item, "node", item)
+    metadata = get_node_metadata(item)
+    return (
+        metadata.get("product_id")
+        or metadata.get("section_id")
+        or metadata.get("uuid")
+        or getattr(node, "node_id", None)
+        or getattr(node, "id_", None)
+    )
 
 
 def get_node_text(item: Any) -> str:
@@ -120,18 +138,47 @@ def preview_text(text: Any, max_len: int = 220) -> str:
     return cleaned[: max_len - 3] + "..."
 
 
-def build_retrieved_doc_rows(nodes: list[Any], *, preview_len: int = 220) -> tuple[list[Any], list[dict[str, Any]]]:
+def format_node_metadata(
+    metadata: dict[str, Any],
+    *,
+    keys: list[str] | None = None,
+    max_len: int = 220,
+) -> str:
+    selected_keys = keys or [
+        "brand",
+        "color",
+        "category",
+        "occasion",
+        "price",
+    ]
+    parts = []
+
+    for key in selected_keys:
+        value = metadata.get(key)
+        if value in (None, "", [], {}):
+            continue
+        parts.append(f"{key}={value}")
+
+    if not parts:
+        return "-"
+
+    return preview_text(", ".join(parts), max_len=max_len)
+
+
+def build_retrieved_doc_rows(
+    nodes: list[Any], *, preview_len: int = 220
+) -> tuple[list[Any], list[dict[str, Any]]]:
     retrieved_docs = []
     doc_rows = []
 
     for rank, item in enumerate(nodes, start=1):
         metadata = get_node_metadata(item)
-        section_id = metadata.get("section_id")
-        retrieved_docs.append(section_id)
+        node_id = get_node_id(item)
+        retrieved_docs.append(node_id)
         doc_rows.append(
             {
                 "rank": rank,
-                "section_id": section_id,
+                "section_id": node_id,
                 "title": metadata.get("section_title", "-"),
                 "rerank_score": get_node_score(item),
                 "preview": preview_text(get_node_text(item), max_len=preview_len),
@@ -152,14 +199,15 @@ def build_retrieval_doc_rows(
 
     for rank, item in enumerate(nodes, start=1):
         metadata = get_node_metadata(item)
-        section_id = metadata.get("section_id")
+        node_id = get_node_id(item)
         doc_rows.append(
             {
                 "rank": rank,
-                "hit": "yes" if section_id in relevant_doc_ids else "no",
-                "section_id": section_id,
+                "hit": "yes" if node_id in relevant_doc_ids else "no",
+                "section_id": node_id,
                 "title": metadata.get("section_title", "-"),
                 "score": get_node_score(item),
+                "metadata": format_node_metadata(metadata),
                 "preview": preview_text(get_node_text(item), max_len=preview_len),
             }
         )
@@ -251,7 +299,7 @@ def export_retrieval_report_to_markdown(
     output_path: str | Path,
     *,
     notebook_path: str | Path | None = None,
-    title: str = "FAQ Retrieval Evaluation Report",
+    title: str = "Retrieval Evaluation Report",
 ) -> Path:
     metric_columns = [
         column
@@ -316,6 +364,7 @@ def export_retrieval_report_to_markdown(
             f"Question {item['index']}/{item['total']}",
             [
                 ("Query", item["question"]),
+                ("Retrieval metadata", item.get("retrieval_metadata", "-")),
                 ("Relevant docs", f"`{item['relevant_docs']}`"),
             ],
             table_blocks=[
@@ -323,7 +372,7 @@ def export_retrieval_report_to_markdown(
                 (
                     "Retrieved documents",
                     item["doc_rows"],
-                    ["rank", "hit", "section_id", "title", "score", "preview"],
+                    ["rank", "hit", "section_id", "title", "score", "metadata", "preview"],
                 ),
             ],
         )
@@ -434,9 +483,7 @@ def export_groundedness_calibration_report_to_markdown(
                 ("Reference answer", item["reference_answer"]),
                 ("Candidate answer", item["candidate_answer"]),
             ],
-            table_blocks=[
-                ("Contexts", item["context_rows"], ["index", "context"])
-            ],
+            table_blocks=[("Contexts", item["context_rows"], ["index", "context"])],
         )
 
     return _write_markdown_report(lines, output_path)
@@ -459,16 +506,20 @@ def build_groundedness_calibration_summary(
 
 
 def build_groundedness_calibration_details(report_df: pd.DataFrame) -> pd.DataFrame:
-    return report_df[
-        [
-            "question",
-            "answer_type",
-            "groundedness_score",
-            "predicted_is_grounded",
-            "expected_is_grounded",
-            "label_match",
+    return (
+        report_df[
+            [
+                "question",
+                "answer_type",
+                "groundedness_score",
+                "predicted_is_grounded",
+                "expected_is_grounded",
+                "label_match",
+            ]
         ]
-    ].copy().round({"groundedness_score": 3})
+        .copy()
+        .round({"groundedness_score": 3})
+    )
 
 
 def save_groundedness_calibration_report(
@@ -516,8 +567,14 @@ def save_base_prompting_report(
         [
             {
                 "samples": len(report_df),
-                "greet_true_cases": int(report_df["greet"].sum()) if "greet" in report_df.columns else 0,
-                "greet_false_cases": int((~report_df["greet"]).sum()) if "greet" in report_df.columns else 0,
+                "greet_true_cases": (
+                    int(report_df["greet"].sum()) if "greet" in report_df.columns else 0
+                ),
+                "greet_false_cases": (
+                    int((~report_df["greet"]).sum())
+                    if "greet" in report_df.columns
+                    else 0
+                ),
             }
         ]
     )
@@ -567,7 +624,9 @@ def build_answer_relevance_calibration_summary(
             {
                 "samples": len(report_df),
                 "threshold": threshold,
-                "mean_answer_relevance_score": report_df["answer_relevance_score"].mean(),
+                "mean_answer_relevance_score": report_df[
+                    "answer_relevance_score"
+                ].mean(),
                 "accuracy": report_df["label_match"].mean(),
             }
         ]
@@ -575,16 +634,20 @@ def build_answer_relevance_calibration_summary(
 
 
 def build_answer_relevance_calibration_details(report_df: pd.DataFrame) -> pd.DataFrame:
-    return report_df[
-        [
-            "question",
-            "answer_type",
-            "answer_relevance_score",
-            "predicted_is_relevant",
-            "expected_is_relevant",
-            "label_match",
+    return (
+        report_df[
+            [
+                "question",
+                "answer_type",
+                "answer_relevance_score",
+                "predicted_is_relevant",
+                "expected_is_relevant",
+                "label_match",
+            ]
         ]
-    ].copy().round({"answer_relevance_score": 3})
+        .copy()
+        .round({"answer_relevance_score": 3})
+    )
 
 
 def save_answer_relevance_calibration_report(
